@@ -1,0 +1,9 @@
+# UI Components Directory
+
+Place reusable UI components here:
+- Button.tsx
+- Input.tsx
+- Modal.tsx
+- Loading.tsx
+- etc.
+
