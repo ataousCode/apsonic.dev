@@ -10,10 +10,10 @@ export function useHover<T extends HTMLElement = HTMLElement>(): [
     onMouseEnter: () => void;
     onMouseLeave: () => void;
   },
-  React.RefObject<T>
+  React.RefObject<T | null>
 ] {
   const [isHovered, setIsHovered] = useState(false);
-  const ref = useRef<T>(null);
+  const ref = useRef<T | null>(null);
 
   const handleMouseEnter = useCallback(() => {
     setIsHovered(true);
