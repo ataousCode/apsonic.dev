@@ -22,12 +22,6 @@ interface SidebarIcon {
 
 const SIDEBAR_ICONS: SidebarIcon[] = [
   {
-    id: 'help',
-    icon: <HelpIcon className="w-6 h-6" />,
-    label: 'Help / FAQ',
-    onClick: () => console.log('Help clicked'),
-  },
-  {
     id: 'chat',
     icon: <ChatIcon className="w-6 h-6" />,
     label: 'Customer Service',
@@ -39,12 +33,6 @@ const SIDEBAR_ICONS: SidebarIcon[] = [
     label: 'Store Locator',
     href: '/services',
   },
-  // {
-  //   id: 'user',
-  //   icon: <UserIcon className="w-6 h-6" />,
-  //   label: 'Account / Profile',
-  //   onClick: () => console.log('Profile clicked'),
-  // },
 ];
 
 export const RightSidebar: React.FC = () => {

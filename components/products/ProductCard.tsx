@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import type { ProductCategory } from '@/lib/types/products';
 import { buildProductUrl } from '@/lib/data/products';
-import { colors, typography, effects } from '@/lib/design-tokens';
+import { effects } from '@/lib/design-tokens';
 import { cn } from '@/lib/utils';
 
 interface ProductCardProps {
@@ -13,53 +13,37 @@ interface ProductCardProps {
   className?: string;
 }
 
-/**
- * ProductCard - Displays a product category with image
- * Reusable across dropdown, category pages, etc.
- */
+// Reusable product category card with image
 export const ProductCard: React.FC<ProductCardProps> = ({ category, className }) => {
-  const href = buildProductUrl(category);
-
   return (
     <Link
-      href={href}
+      href={buildProductUrl(category)}
       className={cn(
         'group flex flex-col items-center cursor-pointer',
         effects.transition.default,
-        'hover:scale-105',
+        'hover:scale-102',
         className
       )}
     >
-      {/* Category Name */}
       <h4
         className={cn(
-          'font-medium text-center mb-2',
+          'font-medium text-center mb-1 text-sm text-gray-700',
           effects.transition.colors,
           'group-hover:text-[#1FA84F]'
         )}
-        style={{
-          color: colors.text.black,
-          fontSize: typography.size.body,
-        }}
       >
         {category.name}
       </h4>
 
-      {/* Category Image */}
-      <div className="relative w-[180px] h-[120px] overflow-hidden">
+      <div className="relative w-[140px] h-[90px] overflow-hidden rounded-md">
         <Image
           src={category.image}
           alt={category.name}
           fill
-          className={cn(
-            'object-contain',
-            effects.transition.default,
-            'group-hover:scale-110'
-          )}
-          sizes="180px"
+          className={cn('object-contain', effects.transition.default, 'group-hover:scale-105')}
+          sizes="140px"
         />
       </div>
     </Link>
   );
 };
-

@@ -1,6 +1,6 @@
 /**
  * Application-wide constants
- * Centralized configuration for maintainability
+ * Please backend developer note: this is the centralized configuration for maintainability
  */
 export const APP_NAME = 'APSONIC';
 export const BRAND_TAGLINE = 'Good Quality, Good Life';

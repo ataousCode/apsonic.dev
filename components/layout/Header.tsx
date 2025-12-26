@@ -10,7 +10,6 @@ import { LanguageSelector, type Language } from './LanguageSelector';
 import { MobileMenuButton } from './MobileMenuButton';
 import { ProductsDropdown } from '@/components/products';
 
-// Delay before closing dropdown (ms) - prevents accidental closing
 const DROPDOWN_CLOSE_DELAY = 150;
 
 export const Header: React.FC = () => {
@@ -19,15 +18,9 @@ export const Header: React.FC = () => {
   const [isProductsDropdownOpen, setIsProductsDropdownOpen] = useState(false);
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const handleMobileMenuToggle = () => {
-    setIsMobileMenuOpen((prev) => !prev);
-  };
+  const handleMobileMenuToggle = () => setIsMobileMenuOpen((prev) => !prev);
+  const handleMobileMenuClose = () => setIsMobileMenuOpen(false);
 
-  const handleMobileMenuClose = () => {
-    setIsMobileMenuOpen(false);
-  };
-
-  // Open dropdown immediately, cancel any pending close
   const openDropdown = useCallback(() => {
     if (closeTimeoutRef.current) {
       clearTimeout(closeTimeoutRef.current);
@@ -36,7 +29,6 @@ export const Header: React.FC = () => {
     setIsProductsDropdownOpen(true);
   }, []);
 
-  // Close dropdown with delay
   const closeDropdown = useCallback(() => {
     closeTimeoutRef.current = setTimeout(() => {
       setIsProductsDropdownOpen(false);
@@ -53,18 +45,15 @@ export const Header: React.FC = () => {
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
           <Logo size="md" />
 
-          {/* Desktop Navigation with Products Dropdown */}
+          {/* Desktop Navigation */}
           <div className="hidden md:flex relative">
             <Navigation
               items={NAV_ITEMS}
               onProductsHover={openDropdown}
               onProductsLeave={closeDropdown}
             />
-            
-            {/* Products Dropdown */}
             {isProductsDropdownOpen && (
               <ProductsDropdown
                 onMouseEnter={openDropdown}
@@ -73,30 +62,19 @@ export const Header: React.FC = () => {
             )}
           </div>
 
-          {/* Desktop Search and Language */}
+          {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-4">
             <SearchInput />
             <LanguageSelector value={language} onChange={setLanguage} />
           </div>
 
-          {/* Mobile Menu Button */}
-          <MobileMenuButton
-            isOpen={isMobileMenuOpen}
-            onClick={handleMobileMenuToggle}
-          />
+          <MobileMenuButton isOpen={isMobileMenuOpen} onClick={handleMobileMenuToggle} />
         </div>
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <nav
-            className="md:hidden py-4"
-            style={{ borderTop: `1px solid ${colors.ui.border}` }}
-          >
-            <Navigation
-              items={NAV_ITEMS}
-              className="flex-col gap-0"
-              onItemClick={handleMobileMenuClose}
-            />
+          <nav className="md:hidden py-4" style={{ borderTop: `1px solid ${colors.ui.border}` }}>
+            <Navigation items={NAV_ITEMS} className="flex-col gap-0" onItemClick={handleMobileMenuClose} />
             <div className="mt-4 flex flex-col gap-3">
               <SearchInput className="w-full" />
               <LanguageSelector value={language} onChange={setLanguage} />

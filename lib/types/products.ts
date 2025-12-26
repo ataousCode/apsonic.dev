@@ -1,8 +1,4 @@
-/**
- * Product-related type definitions
- * Centralized types for products, brands, and categories
- * Backend-ready structure
- */
+// Product-related type definitions
 
 export interface Brand {
   id: string;
@@ -16,11 +12,10 @@ export interface ProductCategory {
   name: string;
   slug: string;
   image: string;
-  brandId?: string; // Optional: filter by brand
+  brandId?: string;
 }
 
 export interface DropdownConfig {
   brands: Brand[];
   categories: ProductCategory[];
 }
-
