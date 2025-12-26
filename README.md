@@ -1,8 +1,8 @@
-# APSONIC Website
+<img width="1907" height="958" alt="Screenshot 2025-12-26 at 22 23 11" src="https://github.com/user-attachments/assets/114ccc11-a440-476e-8af7-7587219b95be" /># APSONIC Website!
 
-![APSONIC Banner](./message/Screenshot%202025-12-26%20at%2022.15.34.png)
+[Uploading Screenshot 2025-12-26 at 22.23.11.png…]()
 
-> 好质量 好生活 - Bonne qualité pour une meilleure vie
+> 好质量 好生活 - Bonne qualité pour une meilleure vie - Good Quality, Good Life
 
 Official website for APSONIC motorcycles - Quality motorcycles for Africa and beyond.
 
@@ -83,11 +83,11 @@ interface ProductCategory {
 
 ## Features
 
-- 🏍️ Product catalog with brand filtering
-- 🎠 Image carousels with auto-play
-- 🌐 Multi-language support (中文/FR/EN)
-- 📱 Fully responsive design
-- ⚡ Optimized images with Next.js
+- Product catalog with brand filtering
+- Image carousels with auto-play
+- Multi-language support (中文/FR/EN)
+- Fully responsive design
+- Optimized images with Next.js
 
 ## Brands
 
