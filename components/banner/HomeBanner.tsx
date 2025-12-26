@@ -14,7 +14,7 @@ const DEFAULT_BANNER_ITEMS: BannerItem[] = [
   {
     id: '1',
     type: 'image',
-    src: '/images/banners/homepage/img4.png',
+    src: '/images/banners/homepage/img.jpg',
     title: HERO_SLOGAN.chinese,
     description: HERO_SLOGAN.french,
   },
@@ -51,49 +51,42 @@ export const HomeBanner: React.FC<BannerProps> = ({
   return (
     <section
       className="relative w-full min-h-screen flex items-center justify-center overflow-hidden"
-      style={{ backgroundColor: colors.background.primary }}
       onMouseEnter={pause}
       onMouseLeave={resume}
     >
-      {/* Background */}
-      <div
-        className="absolute inset-0 z-0"
-        style={{ backgroundColor: colors.background.primary }}
-      />
+      {/* Background Images - Carousel */}
+      {bannerItems.map((item, index) => (
+        <div
+          key={item.id}
+          className={cn(
+            'absolute inset-0 z-0 transition-opacity duration-1000 ease-in-out',
+            index === currentIndex ? 'opacity-100' : 'opacity-0'
+          )}
+        >
+          <Image
+            src={item.src}
+            alt={`APSONIC Motorcycle ${index + 1}`}
+            fill
+            className="object-cover"
+            priority={index === 0}
+            sizes="100vw"
+          />
+          {/* Dark overlay for text readability */}
+          <div
+            className="absolute inset-0"
+            style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)' }}
+          />
+        </div>
+      ))}
 
-      {/* Main Content Container */}
-      <div className="relative z-10 w-full h-full min-h-screen flex items-center">
+      {/* Main Content Container - Text Overlay */}
+      <div className="relative z-10 w-full min-h-screen flex items-center">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center min-h-screen py-20">
-            {/* Left Side - Motorcycle Images */}
-            <div className="relative flex items-center justify-center lg:justify-start order-2 lg:order-1">
-              <div className="relative w-full max-w-2xl lg:max-w-3xl h-[60vh] lg:h-[70vh]">
-                {bannerItems.map((item, index) => (
-                  <div
-                    key={item.id}
-                    className={cn(
-                      'absolute inset-0 transition-opacity duration-1000 ease-in-out',
-                      index === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                    )}
-                  >
-                    <Image
-                      src={item.src}
-                      alt={`APSONIC Motorcycle ${index + 1}`}
-                      fill
-                      className="object-contain object-left"
-                      priority={index === 0}
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Right Side - Text Overlay */}
-            <div className="flex flex-col justify-center space-y-4 order-1 lg:order-2 lg:pl-8">
+          <div className="flex flex-col justify-center items-end min-h-screen py-20">
+            <div className="inline-block text-left">
               <h1
                 key={currentIndex}
-                className="font-bold leading-tight animate-fade-in-up"
+                className="font-bold leading-tight animate-fade-in-up mb-4"
                 style={{
                   fontSize: typography.size.h1,
                   lineHeight: typography.lineHeight.tight,
@@ -105,13 +98,13 @@ export const HomeBanner: React.FC<BannerProps> = ({
               </h1>
               <p
                 key={`desc-${currentIndex}`}
-                className="animate-fade-in-up"
+                className="font-bold leading-tight animate-fade-in-up"
                 style={{
-                  fontSize: typography.size.bodyLarge,
-                  lineHeight: typography.lineHeight.normal,
-                  color: colors.text.secondary,
+                  fontSize: typography.size.h2,
+                  lineHeight: typography.lineHeight.tight,
+                  color: colors.text.primary,
                   animationDelay: '0.2s',
-                  textShadow: '0 2px 8px rgba(0,0,0,0.7)',
+                  textShadow: '0 2px 10px rgba(0,0,0,0.7)',
                 }}
               >
                 {currentItem.description || HERO_SLOGAN.french}
