@@ -119,7 +119,7 @@ export const Footer: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
             {/* Brand Section */}
             <div className="lg:col-span-1">
-              <Logo showTagline={true} />
+              <Logo showTagline={false} size="lg" />
             </div>
 
             {/* Footer Sections */}

@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
-import { usePathname } from 'next/navigation';
+import React, { useState, useRef, useCallback } from 'react';
 import { NAV_ITEMS } from '@/lib/constants';
 import { colors } from '@/lib/design-tokens';
 import { Logo } from './Logo';
@@ -9,11 +8,16 @@ import { Navigation } from './Navigation';
 import { SearchInput } from './SearchInput';
 import { LanguageSelector, type Language } from './LanguageSelector';
 import { MobileMenuButton } from './MobileMenuButton';
+import { ProductsDropdown } from '@/components/products';
+
+// Delay before closing dropdown (ms) - prevents accidental closing
+const DROPDOWN_CLOSE_DELAY = 150;
 
 export const Header: React.FC = () => {
-  const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [language, setLanguage] = useState<Language>('zh');
+  const [isProductsDropdownOpen, setIsProductsDropdownOpen] = useState(false);
+  const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleMobileMenuToggle = () => {
     setIsMobileMenuOpen((prev) => !prev);
@@ -22,6 +26,22 @@ export const Header: React.FC = () => {
   const handleMobileMenuClose = () => {
     setIsMobileMenuOpen(false);
   };
+
+  // Open dropdown immediately, cancel any pending close
+  const openDropdown = useCallback(() => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+    setIsProductsDropdownOpen(true);
+  }, []);
+
+  // Close dropdown with delay
+  const closeDropdown = useCallback(() => {
+    closeTimeoutRef.current = setTimeout(() => {
+      setIsProductsDropdownOpen(false);
+    }, DROPDOWN_CLOSE_DELAY);
+  }, []);
 
   return (
     <header
@@ -34,10 +54,24 @@ export const Header: React.FC = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Logo />
+          <Logo size="md" />
 
-          {/* Desktop Navigation */}
-          <Navigation items={NAV_ITEMS} className="hidden md:flex" />
+          {/* Desktop Navigation with Products Dropdown */}
+          <div className="hidden md:flex relative">
+            <Navigation
+              items={NAV_ITEMS}
+              onProductsHover={openDropdown}
+              onProductsLeave={closeDropdown}
+            />
+            
+            {/* Products Dropdown */}
+            {isProductsDropdownOpen && (
+              <ProductsDropdown
+                onMouseEnter={openDropdown}
+                onMouseLeave={closeDropdown}
+              />
+            )}
+          </div>
 
           {/* Desktop Search and Language */}
           <div className="hidden md:flex items-center gap-4">
