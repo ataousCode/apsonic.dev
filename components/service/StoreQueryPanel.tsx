@@ -1,0 +1,59 @@
+'use client';
+
+import React from 'react';
+import { RadioOption } from './RadioOption';
+import { colors, typography } from '@/lib/design-tokens';
+import { SERVICE_CONFIG, SERVICE_LABELS } from '@/lib/constants/service';
+import { cn } from '@/lib/utils';
+
+export type StoreQueryType = 'pickup' | 'nearby';
+
+export interface StoreQueryPanelProps {
+  queryType: StoreQueryType;
+  onQueryTypeChange: (type: StoreQueryType) => void;
+  className?: string;
+}
+
+export const StoreQueryPanel: React.FC<StoreQueryPanelProps> = ({
+  queryType,
+  onQueryTypeChange,
+  className,
+}) => {
+  return (
+    <div
+      className={cn('h-full', className)}
+      style={{
+        backgroundColor: colors.service.panelDark,
+        padding: SERVICE_CONFIG.panel.padding,
+      }}
+    >
+      <h3
+        className="mb-6 font-bold"
+        style={{
+          fontSize: SERVICE_CONFIG.typography.panelTitle,
+          color: colors.text.primary,
+        }}
+      >
+        {SERVICE_LABELS.panelTitle}
+      </h3>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: SERVICE_CONFIG.spacing.radioGap }}>
+        <RadioOption
+          value={SERVICE_CONFIG.queryTypes.pickup}
+          label={SERVICE_LABELS.queryOptions.pickup}
+          checked={queryType === SERVICE_CONFIG.queryTypes.pickup}
+          onChange={() => onQueryTypeChange(SERVICE_CONFIG.queryTypes.pickup)}
+          name="queryType"
+        />
+        <RadioOption
+          value={SERVICE_CONFIG.queryTypes.nearby}
+          label={SERVICE_LABELS.queryOptions.nearby}
+          checked={queryType === SERVICE_CONFIG.queryTypes.nearby}
+          onChange={() => onQueryTypeChange(SERVICE_CONFIG.queryTypes.nearby)}
+          name="queryType"
+        />
+      </div>
+    </div>
+  );
+};
+

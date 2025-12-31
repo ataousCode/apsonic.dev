@@ -1,9 +1,7 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 
-/**
- * Custom hook for hover state management
- * Returns hover state and handlers
- */
+// Custom hook for hover state management
+// Returns hover state and handlers
 export function useHover<T extends HTMLElement = HTMLElement>(): [
   boolean,
   {

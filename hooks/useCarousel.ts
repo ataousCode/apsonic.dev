@@ -17,10 +17,8 @@ export interface UseCarouselReturn {
   resume: () => void;
 }
 
-/**
- * Custom hook for carousel/slider functionality
- * Handles auto-rotation, pause/resume, and navigation
- */
+// Custom hook for carousel/slider functionality
+// Handles auto-rotation, pause/resume, and navigation
 export function useCarousel({
   itemsCount,
   autoPlay = true,

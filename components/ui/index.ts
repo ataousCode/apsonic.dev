@@ -7,6 +7,9 @@ export { CarouselDots, type CarouselDotsProps } from './CarouselDots';
 export { CarouselNavButton } from './CarouselNavButton';
 export type { CarouselNavButtonProps } from './CarouselNavButton';
 export { Tooltip, type TooltipProps } from './Tooltip';
+export { Section, type SectionProps } from './Section';
+export { Container, type ContainerProps } from './Container';
+export { HoverCard, type HoverCardProps } from './HoverCard';
 export {
   SearchIcon,
   MenuIcon,
@@ -14,6 +17,7 @@ export {
   HelpIcon,
   ChatIcon,
   LocationIcon,
+  ShoppingBagIcon,
   UserIcon,
   type IconProps,
 } from './Icons';

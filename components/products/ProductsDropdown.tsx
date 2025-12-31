@@ -4,6 +4,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 import type { Brand } from '@/lib/types/products';
 import { getDropdownConfig, getCategoriesByBrand } from '@/lib/data/products';
 import { colors } from '@/lib/design-tokens';
+import { LAYOUT } from '@/lib/constants';
 import { BrandList } from './BrandList';
 import { ProductCard } from './ProductCard';
 
@@ -13,7 +14,7 @@ interface ProductsDropdownProps {
   className?: string;
 }
 
-// Displays brands on left, product categories on right
+// Products dropdown - displays brands on left, product categories on right
 export const ProductsDropdown: React.FC<ProductsDropdownProps> = ({
   onMouseEnter,
   onMouseLeave,
@@ -29,9 +30,9 @@ export const ProductsDropdown: React.FC<ProductsDropdownProps> = ({
     <div
       className={`fixed left-0 right-0 shadow-lg z-50 ${className || ''}`}
       style={{
-        backgroundColor: '#F8F9FA',
+        backgroundColor: colors.background.light,
         borderTop: `1px solid ${colors.ui.border}`,
-        top: '80px',
+        top: `${LAYOUT.dropdownTopOffset}px`,
       }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}

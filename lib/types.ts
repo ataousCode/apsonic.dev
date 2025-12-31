@@ -1,4 +1,4 @@
-//type definitions
+// Type definitions
 export interface Product {
   id: string;
   name: string;
@@ -29,29 +29,9 @@ export interface ProductSpecification {
   value: string;
 }
 
-export interface Store {
-  id: string;
-  name: string;
-  country: string;
-  city: string;
-  address: string;
-  phone?: string;
-  email?: string;
-  coordinates: {
-    lat: number;
-    lng: number;
-  };
-}
+// Store moved to lib/types/store.ts to avoid duplication
 
-export interface BannerItem {
-  id: string;
-  type: 'image' | 'video';
-  src: string;
-  title?: string;
-  description?: string;
-  link?: string;
-  newsId?: string;
-}
+// BannerItem moved to lib/types/banner.ts to avoid duplication
 
 export interface ServiceNetwork {
   id: string;

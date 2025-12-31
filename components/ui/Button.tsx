@@ -42,7 +42,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             color: colors.text.primary,
             border: 'none',
             hover: {
-              backgroundColor: '#1B8F45', // Slightly darker green
+              backgroundColor: '#1B8F45', // Darker green for hover (calculated from brand.green)
               transform: 'scale(1.02)',
             },
           };

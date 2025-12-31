@@ -10,6 +10,8 @@ import {
   HiUser,
   HiChevronLeft,
   HiChevronRight,
+  HiChevronDown,
+  HiShoppingBag,
 } from 'react-icons/hi2';
 import {
   FaFacebook,
@@ -29,7 +31,7 @@ export interface IconProps {
 
 const iconBaseClasses = 'flex-shrink-0';
 
-// Wrapper component to maintain consistent API with React Icons
+// Icon wrapper for consistent API with React Icons
 const IconWrapper: React.FC<{
   Icon: React.ComponentType<{ className?: string; size?: number | string; style?: React.CSSProperties }>;
   className?: string;
@@ -67,6 +69,10 @@ export const LocationIcon: React.FC<IconProps> = (props) => (
   <IconWrapper Icon={HiMapPin} {...props} />
 );
 
+export const ShoppingBagIcon: React.FC<IconProps> = (props) => (
+  <IconWrapper Icon={HiShoppingBag} {...props} />
+);
+
 export const UserIcon: React.FC<IconProps> = (props) => (
   <IconWrapper Icon={HiUser} {...props} />
 );
@@ -77,6 +83,10 @@ export const ChevronLeftIcon: React.FC<IconProps> = (props) => (
 
 export const ChevronRightIcon: React.FC<IconProps> = (props) => (
   <IconWrapper Icon={HiChevronRight} {...props} />
+);
+
+export const ChevronDownIcon: React.FC<IconProps> = (props) => (
+  <IconWrapper Icon={HiChevronDown} {...props} />
 );
 
 // Social Media Icons

@@ -1,7 +1,5 @@
-/**
- * Common style utilities and classes
- * Centralized styling patterns for consistency
- */
+// Common style utilities and classes
+// Centralized styling patterns for consistency
 
 export const commonStyles = {
   // Container

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import type { ProductCategory } from '@/lib/types/products';
 import { buildProductUrl } from '@/lib/data/products';
-import { effects } from '@/lib/design-tokens';
+import { colors, effects } from '@/lib/design-tokens';
 import { cn } from '@/lib/utils';
 
 interface ProductCardProps {
@@ -13,7 +13,7 @@ interface ProductCardProps {
   className?: string;
 }
 
-// Reusable product category card with image
+// Product category card with image
 export const ProductCard: React.FC<ProductCardProps> = ({ category, className }) => {
   return (
     <Link
@@ -27,10 +27,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({ category, className })
     >
       <h4
         className={cn(
-          'font-medium text-center mb-1 text-sm text-gray-700',
+          'font-medium text-center mb-1 text-sm',
           effects.transition.colors,
           'group-hover:text-[#1FA84F]'
         )}
+        style={{
+          color: colors.text.gray.medium,
+        }}
       >
         {category.name}
       </h4>

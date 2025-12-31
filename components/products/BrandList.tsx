@@ -14,7 +14,7 @@ interface BrandListProps {
   className?: string;
 }
 
-// Reusable brand selection list
+// Brand selection list component
 export const BrandList: React.FC<BrandListProps> = ({
   brands,
   selectedBrandId,
@@ -23,7 +23,10 @@ export const BrandList: React.FC<BrandListProps> = ({
 }) => {
   return (
     <div className={cn('flex flex-col', className)}>
-      <h3 className="font-medium mb-3 text-xs uppercase tracking-wide text-gray-500">
+      <h3
+        className="font-medium mb-3 text-xs uppercase tracking-wide"
+        style={{ color: colors.text.gray.light }}
+      >
         Brand
       </h3>
 
@@ -41,7 +44,7 @@ export const BrandList: React.FC<BrandListProps> = ({
                   isSelected ? 'bg-[#1FA84F]/10' : 'hover:bg-white/60'
                 )}
                 style={{
-                  color: isSelected ? colors.brand.green : '#374151',
+                  color: isSelected ? colors.brand.green : colors.text.gray.medium,
                   borderLeft: isSelected ? `2px solid ${colors.brand.green}` : '2px solid transparent',
                 }}
                 onMouseEnter={() => onBrandHover?.(brand)}

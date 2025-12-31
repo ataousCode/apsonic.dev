@@ -44,7 +44,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             )}
             style={{
               backgroundColor: colors.background.secondary,
-              border: `1px solid ${error ? '#ef4444' : colors.ui.border}`,
+              border: `1px solid ${error ? colors.ui.error : colors.ui.border}`,
               color: colors.text.primary,
             }}
             placeholder={props.placeholder}
@@ -62,7 +62,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           />
         </div>
         {error && (
-          <p className="mt-1 text-sm" style={{ color: '#ef4444' }}>
+          <p className="mt-1 text-sm" style={{ color: colors.ui.error }}>
             {error}
           </p>
         )}

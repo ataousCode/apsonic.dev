@@ -10,6 +10,7 @@ import { LanguageSelector, type Language } from './LanguageSelector';
 import { MobileMenuButton } from './MobileMenuButton';
 import { ProductsDropdown } from '@/components/products';
 
+// Delay before closing dropdown to prevent accidental closing
 const DROPDOWN_CLOSE_DELAY = 150;
 
 export const Header: React.FC = () => {

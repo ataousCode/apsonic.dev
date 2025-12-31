@@ -68,25 +68,9 @@ export const FeaturedModelCarousel: React.FC<FeaturedModelCarouselProps> = ({
       </div>
 
       {/* Main Image Container */}
-      <div className="relative w-full max-w-4xl mx-auto mb-8">
-        {/* Navigation Arrows */}
-        {models.length > 1 && (
-          <>
-            <CarouselNavButton
-              direction="left"
-              onClick={prevSlide}
-              ariaLabel="Previous model"
-            />
-            <CarouselNavButton
-              direction="right"
-              onClick={nextSlide}
-              ariaLabel="Next model"
-            />
-          </>
-        )}
-
+      <div className="relative w-full mb-8">
         {/* Image with Watermark */}
-        <div className="relative w-full aspect-[16/10] overflow-hidden">
+        <div className="relative w-full max-w-4xl mx-auto aspect-[16/10] overflow-hidden">
           {/* Watermark Background */}
           {currentModel.watermark && (
             <div
@@ -117,12 +101,28 @@ export const FeaturedModelCarousel: React.FC<FeaturedModelCarouselProps> = ({
             />
           </div>
         </div>
+
+        {/* Navigation Arrows - positioned at container level */}
+        {models.length > 1 && (
+          <>
+            <CarouselNavButton
+              direction="left"
+              onClick={prevSlide}
+              ariaLabel="Previous model"
+            />
+            <CarouselNavButton
+              direction="right"
+              onClick={nextSlide}
+              ariaLabel="Next model"
+            />
+          </>
+        )}
       </div>
 
       {/* Call to Action Button */}
       <div className="text-center">
         <Link href="/products">
-          <Button variant="secondary" size="md">
+          <Button variant="outline" size="md">
             All Models
           </Button>
         </Link>

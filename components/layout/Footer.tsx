@@ -41,7 +41,7 @@ const SOCIAL_ICONS = [
   { name: 'linkedin', Icon: LinkedInIcon, href: SOCIAL_LINKS.linkedin },
 ];
 
-// Reusable Footer Link Component (DRY)
+// Footer link component
 const FooterLink: React.FC<{ href?: string; label: string; isSubItem?: boolean }> = ({
   href,
   label,
@@ -53,7 +53,7 @@ const FooterLink: React.FC<{ href?: string; label: string; isSubItem?: boolean }
   };
 
   if (!href) {
-    // Render as non-clickable text for parent items without href
+    // Non-clickable text for parent items without href
     return (
       <span className="block" style={linkStyle}>
         {label}
@@ -145,7 +145,7 @@ export const Footer: React.FC = () => {
                 <Icon
                   size={20}
                   style={{ color: colors.text.secondary }}
-                  className="hover:text-[#1FA84F] transition-colors"
+                  className="transition-colors"
                 />
               </Link>
             ))}

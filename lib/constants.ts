@@ -1,7 +1,4 @@
-/**
- * Application-wide constants
- * Please backend developer note: this is the centralized configuration for maintainability
- */
+// Application-wide constants
 export const APP_NAME = 'APSONIC';
 export const BRAND_TAGLINE = 'Good Quality, Good Life';
 
@@ -94,6 +91,14 @@ export const PRODUCT_CATEGORIES = [
   { id: 'parts', label: 'Parts' },
 ];
 
+// Product category names for display
+export const CATEGORY_DISPLAY_NAMES: Record<string, string> = {
+  underbone: 'Underbone',
+  street: 'Street',
+  offroad: 'Off-Road',
+  tricycle: 'Tricycle',
+};
+
 // Demo prices for development
 export const FILTER_OPTIONS = {
   price: [
@@ -154,5 +159,11 @@ export const CAROUSEL_CONFIG = {
   defaultInterval: 5000,
   scrollGap: 24, // gap-6 = 24px
   cardWidth: 280,
+};
+
+// Layout Constants
+export const LAYOUT = {
+  headerHeight: 80, // Header height in pixels
+  dropdownTopOffset: 80, // Dropdown top position to match header
 };
 

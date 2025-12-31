@@ -12,7 +12,7 @@ import { cn } from '@/lib/utils';
 export interface CategoryCarouselProps {
   categories: MotorcycleCategory[];
   autoPlay?: boolean;
-  interval?: number; // Not used but kept for API consistency
+  interval?: number; // Not used, kept for API consistency
 }
 
 export const CategoryCarousel: React.FC<CategoryCarouselProps> = ({
@@ -20,9 +20,7 @@ export const CategoryCarousel: React.FC<CategoryCarouselProps> = ({
 }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  /**
-   * Scrolls the carousel horizontally by one card width plus gap
-   */
+  // Scrolls the carousel horizontally by one card width plus gap
   const scroll = (direction: 'left' | 'right') => {
     if (!scrollContainerRef.current) return;
     
@@ -36,10 +34,8 @@ export const CategoryCarousel: React.FC<CategoryCarouselProps> = ({
     });
   };
 
-  /**
-   * Centers the scroll position on initial load for better visual balance
-   * Only applies when there are 3 or fewer categories
-   */
+  // Centers scroll position on initial load for better visual balance
+  // Only applies when there are 3 or fewer categories
   useEffect(() => {
     if (scrollContainerRef.current && categories.length <= 3) {
       const container = scrollContainerRef.current;
@@ -112,7 +108,7 @@ export const CategoryCarousel: React.FC<CategoryCarouselProps> = ({
                 className={cn(
                   'font-medium',
                   effects.transition.colors,
-                  'group-hover:text-[#1FA84F]' // Using colors.brand.green
+                  'group-hover:text-[#1FA84F]' // Brand green hover (Tailwind requires static value)
                 )}
                 style={{
                   color: colors.text.black,

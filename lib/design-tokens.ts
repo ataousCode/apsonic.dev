@@ -1,7 +1,5 @@
-/**
- * APSONIC Design System Tokens
- * Dark, Industrial, Premium, Mechanical
- */
+// APSONIC Design System Tokens
+// Dark, Industrial, Premium, Mechanical
 
 export const colors = {
   // Brand Colors
@@ -18,10 +16,12 @@ export const colors = {
     secondary: '#1E1E1E', // Cards, sections, elevated surfaces
     tertiary: '#2A2A2A', // Hover states, borders
     header: '#0F0F0F', // Header background
-    sidebar: 'rgba(30, 30, 30, 0.8)', // Sidebar with transparency
+    sidebar: 'rgba(40, 40, 40, 0.95)', // Sidebar - black but not very black
     overlay: 'rgba(0, 0, 0, 0.4)', // Image overlay
     overlayDark: 'rgba(0, 0, 0, 0.6)', // Darker image overlay
     white: '#FFFFFF', // White background for light sections
+    light: '#F8F9FA', // Light gray background for dropdowns
+    card: '#F3F4F6', // Light gray for product cards (gray-100)
   },
 
   // Text Colors
@@ -30,6 +30,11 @@ export const colors = {
     secondary: '#B0B0B0', // Body text, descriptions
     muted: '#808080', // Placeholders, disabled states
     black: '#000000', // Black text for light backgrounds
+    gray: {
+      light: '#6B7280', // Light gray for labels
+      medium: '#374151', // Medium gray for body text on light backgrounds
+      dark: '#1F2937', // Dark gray for headings on light backgrounds
+    },
   },
 
   // UI Colors
@@ -38,6 +43,19 @@ export const colors = {
     border: 'rgba(255, 255, 255, 0.1)', // Subtle borders
     borderHover: 'rgba(255, 255, 255, 0.2)', // Hover borders
     hover: 'rgba(255, 255, 255, 0.05)', // Hover overlay
+    error: '#ef4444', // Error states
+  },
+  
+  // Service Support specific colors
+  service: {
+    brandGreen: '#00A86B',
+    brandGreenLight: '#00C853',
+    panelDark: '#2a2a2a',
+    panelOverlay: 'rgba(0, 0, 0, 0.75)',
+    inputDark: '#1a1a1a',
+    textMuted: '#999999',
+    textSecondary: '#666666',
+    white: '#FFFFFF',
   },
 } as const;
 
