@@ -6,7 +6,7 @@ import { StoreListPanel } from './StoreListPanel';
 import { StoreMapPanel } from './StoreMapPanel';
 import { Button } from '@/components/ui/Button';
 import { STORES, filterStores } from '@/lib/data/stores';
-import type { Store } from '@/lib/types/store';
+import type { Store, StoreFilter } from '@/lib/types/store';
 import { colors, spacing } from '@/lib/design-tokens';
 import { SERVICE_CONFIG, SERVICE_LABELS } from '@/lib/constants/service';
 import { cn } from '@/lib/utils';
@@ -24,7 +24,7 @@ export const ServiceSupport: React.FC<ServiceSupportProps> = ({
 
   // Filter stores based on query type and search
   const filteredStores = useMemo(() => {
-    const filter = {
+    const filter: StoreFilter = {
       type: queryType === 'pickup' ? 'dealer' : 'all',
       search: searchTerm,
     };

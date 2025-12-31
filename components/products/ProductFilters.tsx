@@ -7,11 +7,11 @@ import { colors } from '@/lib/design-tokens';
 import { BRANDS } from '@/lib/data/products';
 import { CATEGORY_OPTIONS } from '@/lib/data/filters';
 import { getAvailableDisplacements } from '@/lib/data/product-models';
-import type { ProductFilters } from '@/lib/types/products';
+import type { ProductFilters as ProductFiltersType } from '@/lib/types/products';
 
 interface ProductFiltersProps {
-  filters: ProductFilters;
-  onFilterChange: (filters: ProductFilters) => void;
+  filters: ProductFiltersType;
+  onFilterChange: (filters: ProductFiltersType) => void;
 }
 
 export const ProductFilters: React.FC<ProductFiltersProps> = ({
