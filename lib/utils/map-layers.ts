@@ -47,7 +47,7 @@ export const updateGeoJSONSource = (
 /**
  * Get fill color expression for region-based styling
  */
-const getFillColorExpression = (): unknown[] => {
+const getFillColorExpression = (): mapboxgl.Expression => {
   return [
     'case',
     // Priority 1: Red for searched country
@@ -64,13 +64,13 @@ const getFillColorExpression = (): unknown[] => {
     AFRICA_MAP_CONFIG.regionColors.other,
     // Priority 3: Default gray
     AFRICA_MAP_CONFIG.regionColors.default,
-  ];
+  ] as mapboxgl.Expression;
 };
 
 /**
  * Get outline color expression
  */
-const getOutlineColorExpression = (): unknown[] => {
+const getOutlineColorExpression = (): mapboxgl.Expression => {
   return [
     'case',
     ['==', ['get', 'isSearched'], true],
@@ -84,7 +84,7 @@ const getOutlineColorExpression = (): unknown[] => {
     ['==', ['get', 'region'], 'other'],
     AFRICA_MAP_CONFIG.regionColors.other,
     '#90a4ae',
-  ];
+  ] as mapboxgl.Expression;
 };
 
 /**
