@@ -73,6 +73,6 @@ export const COUNTRY_NAME_MAP: Record<string, string> = {
   // North Africa
   egypt: 'EGY', tunisia: 'TUN',
   // French names
-  'bénin': 'BEN', 'sénégal': 'SEN', 'mali': 'MLI',
+  'bénin': 'BEN', 'sénégal': 'SEN',
 };
 
