@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { ServiceHero } from '@/components/service-page/ServiceHero';
-import { MotorcycleGrid } from '@/components/service-page/MotorcycleGrid';
 import { SupportTools } from '@/components/service-page/SupportTools';
 import { ServiceSearch } from '@/components/service-page/ServiceSearch';
 import { FeatureCards } from '@/components/service-page/FeatureCards';
@@ -11,7 +10,6 @@ import { StoreLocatorSection } from '@/components/service-page/StoreLocatorSecti
 import { ServiceCoverage } from '@/components/service-page/ServiceCoverage';
 import { InformationBlocks } from '@/components/service-page/InformationBlocks';
 import {
-  getServicePageMotorcycles,
   FEATURE_CARDS,
   EXPLORE_CARDS,
   INFO_BLOCKS,
@@ -21,12 +19,9 @@ import { FAQ } from '@/components/service-page';
 import { SERVICE_PAGE_CONFIG } from '@/lib/constants/service-page';
 
 export default function ServicesPage() {
-  const motorcycles = getServicePageMotorcycles();
-
   return (
     <main style={{ backgroundColor: SERVICE_PAGE_CONFIG.colors.background }}>
       <ServiceHero />
-      <MotorcycleGrid motorcycles={motorcycles} />
       <SupportTools />
       <ServiceSearch />
       <FeatureCards cards={FEATURE_CARDS} />

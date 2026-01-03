@@ -12,6 +12,10 @@ import {
   HiChevronRight,
   HiChevronDown,
   HiShoppingBag,
+  HiArrowPath,
+  HiPhone,
+  HiEnvelope,
+  HiClock,
 } from 'react-icons/hi2';
 import {
   FaFacebook,
@@ -87,6 +91,22 @@ export const ChevronRightIcon: React.FC<IconProps> = (props) => (
 
 export const ChevronDownIcon: React.FC<IconProps> = (props) => (
   <IconWrapper Icon={HiChevronDown} {...props} />
+);
+
+export const RefreshIcon: React.FC<IconProps> = (props) => (
+  <IconWrapper Icon={HiArrowPath} {...props} />
+);
+
+export const PhoneIcon: React.FC<IconProps> = (props) => (
+  <IconWrapper Icon={HiPhone} {...props} />
+);
+
+export const MailIcon: React.FC<IconProps> = (props) => (
+  <IconWrapper Icon={HiEnvelope} {...props} />
+);
+
+export const ClockIcon: React.FC<IconProps> = (props) => (
+  <IconWrapper Icon={HiClock} {...props} />
 );
 
 // Social Media Icons

@@ -1,19 +1,15 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { ProductFilters } from '@/components/products/ProductFilters';
 import { ProductGrid } from '@/components/products/ProductGrid';
-import { filterProducts } from '@/lib/data/product-models';
-import { PRODUCT_MODELS } from '@/lib/data/product-models';
 import type { ProductFilters as ProductFiltersType } from '@/lib/types/products';
+import { useProductFilters } from '@/hooks/useProductFilters';
 import { colors, spacing } from '@/lib/design-tokens';
 
 export default function ProductsPage() {
   const [filters, setFilters] = useState<ProductFiltersType>({});
-
-  const filteredProducts = useMemo(() => {
-    return filterProducts(filters);
-  }, [filters]);
+  const filteredProducts = useProductFilters(filters);
 
   return (
     <main

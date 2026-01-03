@@ -11,6 +11,9 @@ export interface Store {
     country: string;
     city?: string;
     phone?: string;
+    email?: string;
+    workingHours?: string;
+    distance?: number; // Distance from user location in kilometers
 }
 
 export interface StoreFilter {

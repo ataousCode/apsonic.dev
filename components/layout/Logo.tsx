@@ -34,7 +34,7 @@ export const Logo: React.FC<LogoProps> = ({
     >
       <div className="relative flex-shrink-0">
         <Image
-          src="/images/logo/logo.png"
+          src="/images/logo/apsoniclogo.png"
           alt="APSONIC Logo"
           width={120}
           height={40}

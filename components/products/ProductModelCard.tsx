@@ -12,48 +12,63 @@ interface ProductModelCardProps {
   className?: string;
 }
 
-// Motorcycle card with bike in front, card as background
-// No overflow, no animations
+// Product card with image intentionally overflowing the card background
+// Creates a floating, layered effect with depth and visual hierarchy
+// Wheels and lower body parts extend DOWNWARD beyond card boundaries
+// Fully responsive with proper spacing
 export const ProductModelCard: React.FC<ProductModelCardProps> = ({ product, className }) => {
   return (
     <Link
       href={`/products/${product.id}`}
-      className={cn('relative block', className)}
+      className={cn('relative block group', className)}
       style={{
-        backgroundColor: PRODUCTS_GRID_CONFIG.card.background,
-        borderRadius: PRODUCTS_GRID_CONFIG.card.borderRadius,
-        padding: PRODUCTS_GRID_CONFIG.card.padding,
-        overflow: 'hidden',
+        paddingBottom: '8px', // Minimal space for very small bottom overflow
       }}
     >
-      {/* Model name (top left) and Brand (top right) */}
-      <div className="relative z-10 flex items-start justify-between mb-4 pointer-events-none">
-        <span
-          className="font-bold"
-          style={{
-            fontSize: PRODUCTS_GRID_CONFIG.typography.modelName.fontSize,
-            fontWeight: PRODUCTS_GRID_CONFIG.typography.modelName.fontWeight,
-            color: PRODUCTS_GRID_CONFIG.typography.modelName.color,
-          }}
+      {/* Card Background - Fixed height, does not extend to bottom */}
+      <div
+        className="relative"
+        style={{
+          backgroundColor: PRODUCTS_GRID_CONFIG.card.background,
+          borderRadius: PRODUCTS_GRID_CONFIG.card.borderRadius,
+          padding: PRODUCTS_GRID_CONFIG.card.padding,
+          minHeight: '220px',
+          zIndex: 1,
+        }}
+      >
+        {/* Model name (top left) and Brand (top right) - Inside card background */}
+        <div 
+          className="flex items-start justify-between pointer-events-none mb-2"
         >
-          {product.model}
-        </span>
-        <span
-          className="text-xs uppercase tracking-wide"
-          style={{
-            fontSize: PRODUCTS_GRID_CONFIG.typography.brandName.fontSize,
-            color: PRODUCTS_GRID_CONFIG.typography.brandName.color,
-          }}
-        >
-          {product.brand}
-        </span>
+          <span
+            className="font-bold text-sm sm:text-base"
+            style={{
+              fontSize: PRODUCTS_GRID_CONFIG.typography.modelName.fontSize,
+              fontWeight: PRODUCTS_GRID_CONFIG.typography.modelName.fontWeight,
+              color: PRODUCTS_GRID_CONFIG.typography.modelName.color,
+            }}
+          >
+            {product.model}
+          </span>
+          <span
+            className="text-xs uppercase tracking-wide"
+            style={{
+              fontSize: PRODUCTS_GRID_CONFIG.typography.brandName.fontSize,
+              color: PRODUCTS_GRID_CONFIG.typography.brandName.color,
+            }}
+          >
+            {product.brand}
+          </span>
+        </div>
       </div>
 
-      {/* Motorcycle Image - Contained within card, in front of background */}
+      {/* Product Image - Positioned higher, only small portion (wheels) overflows at bottom */}
+      {/* Responsive: overflow adjusts on smaller screens to maintain spacing */}
       <div
-        className="relative w-full"
+        className="relative z-10 w-[calc(100%+12px)] sm:w-[calc(100%+12px)] md:w-[calc(100%+12px)] -ml-[6px] -mr-[6px] -mb-[4px]"
         style={{
           aspectRatio: PRODUCTS_GRID_CONFIG.image.aspectRatio,
+          marginTop: '-200px', // Moved further upward - only small portion overflows
         }}
       >
         <Image
@@ -61,7 +76,7 @@ export const ProductModelCard: React.FC<ProductModelCardProps> = ({ product, cla
           alt={product.model}
           fill
           className="object-contain object-center"
-          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
       </div>
     </Link>

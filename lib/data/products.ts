@@ -1,5 +1,4 @@
-// Products data - replace with API calls when backend is ready
-
+// Mock products/brands data - replace with GET /api/brands and GET /api/categories
 import type { Brand, ProductCategory, DropdownConfig } from '@/lib/types/products';
 
 export const BRANDS: Brand[] = [

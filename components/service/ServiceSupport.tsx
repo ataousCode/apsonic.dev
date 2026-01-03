@@ -1,14 +1,13 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
-import { StoreQueryPanel, type StoreQueryType } from './StoreQueryPanel';
+import React from 'react';
+import { StoreQueryPanel } from './StoreQueryPanel';
 import { StoreListPanel } from './StoreListPanel';
-import { StoreMapPanel } from './StoreMapPanel';
+import { AfricaMapPanel } from './AfricaMapPanel';
 import { Button } from '@/components/ui/Button';
-import { STORES, filterStores } from '@/lib/data/stores';
-import type { Store, StoreFilter } from '@/lib/types/store';
 import { colors, spacing } from '@/lib/design-tokens';
 import { SERVICE_CONFIG, SERVICE_LABELS } from '@/lib/constants/service';
+import { useServiceSupport } from '@/hooks/useServiceSupport';
 import { cn } from '@/lib/utils';
 
 export interface ServiceSupportProps {
@@ -18,18 +17,21 @@ export interface ServiceSupportProps {
 export const ServiceSupport: React.FC<ServiceSupportProps> = ({
   className,
 }) => {
-  const [queryType, setQueryType] = useState<StoreQueryType>('pickup');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedStore, setSelectedStore] = useState<Store | undefined>();
-
-  // Filter stores based on query type and search
-  const filteredStores = useMemo(() => {
-    const filter: StoreFilter = {
-      type: queryType === 'pickup' ? 'dealer' : 'all',
-      search: searchTerm,
-    };
-    return filterStores(STORES, filter);
-  }, [queryType, searchTerm]);
+  const {
+    queryType,
+    setQueryType,
+    searchTerm,
+    selectedStore,
+    setSelectedStore,
+    selectedCountry,
+    userLocation,
+    userAddress,
+    isLoadingLocation,
+    locationError,
+    filteredStores,
+    handleSearchChange,
+    handleCountrySelect,
+  } = useServiceSupport();
 
   return (
     <section
@@ -50,58 +52,111 @@ export const ServiceSupport: React.FC<ServiceSupportProps> = ({
           </h2>
         </div>
 
-        {/* Three Column Layout with Map as Background */}
-        <div className="relative mb-8" style={{ minHeight: '600px', display: 'flex' }}>
-          {/* Map - Full Width Background (extends behind middle panel) */}
-          <div
-            className="absolute inset-0"
-            style={{
-              left: SERVICE_CONFIG.layout.mapStartPosition,
-              right: 0,
-              zIndex: 1,
-            }}
-          >
-            <StoreMapPanel
-              stores={filteredStores}
-              selectedStore={selectedStore}
-              onStoreSelect={setSelectedStore}
-              className="h-full"
-            />
+        {/* Responsive Layout: Vertical on mobile, Horizontal on desktop */}
+        <div className="mb-8">
+          {/* Mobile: Vertical Stack */}
+          <div className="flex flex-col lg:hidden">
+            {/* Left Panel */}
+            <div className="w-full">
+              <StoreQueryPanel
+                queryType={queryType}
+                onQueryTypeChange={setQueryType}
+                className="h-auto min-h-[200px]"
+              />
+            </div>
+
+            {/* Middle Panel */}
+            <div className="w-full">
+              <StoreListPanel
+                stores={filteredStores}
+                searchTerm={searchTerm}
+                onSearchChange={handleSearchChange}
+                selectedStoreId={selectedStore?.id}
+                onStoreSelect={setSelectedStore}
+                onCountrySearch={handleCountrySelect}
+                selectedCountry={selectedCountry}
+                queryType={queryType}
+                userLocation={userLocation}
+                userAddress={userAddress}
+                isLoadingLocation={isLoadingLocation}
+                locationError={locationError}
+                className="h-auto min-h-[300px]"
+              />
+            </div>
+
+            {/* Map Panel */}
+            <div className="w-full" style={{ minHeight: '400px', height: '400px' }}>
+              <AfricaMapPanel
+                selectedCountry={searchTerm.trim() ? (selectedCountry || searchTerm) : ''}
+                onCountrySelect={handleCountrySelect}
+                userLocation={queryType === 'nearby' ? userLocation : null}
+                showOnlyUserLocation={queryType === 'nearby'}
+                className="h-full"
+              />
+            </div>
           </div>
 
-          {/* Left Panel - Opaque */}
-          <div
-            style={{
-              width: SERVICE_CONFIG.layout.leftPanelWidth,
-              flexShrink: 0,
-              position: 'relative',
-              zIndex: 3,
-            }}
-          >
-            <StoreQueryPanel
-              queryType={queryType}
-              onQueryTypeChange={setQueryType}
-              className="h-full"
-            />
-          </div>
+          {/* Desktop: Horizontal Layout with Map as Background */}
+          <div className="hidden lg:flex relative" style={{ minHeight: '600px' }}>
+            {/* Left Panel - Opaque */}
+            <div
+              className="flex-shrink-0"
+              style={{
+                width: SERVICE_CONFIG.layout.leftPanelWidth,
+                position: 'relative',
+                zIndex: 3,
+              }}
+            >
+              <StoreQueryPanel
+                queryType={queryType}
+                onQueryTypeChange={setQueryType}
+                className="h-full"
+              />
+            </div>
 
-          {/* Middle Panel - Semi-transparent overlay */}
-          <div
-            style={{
-              width: SERVICE_CONFIG.layout.middlePanelWidth,
-              flexShrink: 0,
-              position: 'relative',
-              zIndex: 2,
-            }}
-          >
-            <StoreListPanel
-              stores={filteredStores}
-              searchTerm={searchTerm}
-              onSearchChange={setSearchTerm}
-              selectedStoreId={selectedStore?.id}
-              onStoreSelect={setSelectedStore}
-              className="h-full"
-            />
+            {/* Middle Panel - Semi-transparent overlay */}
+            <div
+              className="flex-shrink-0"
+              style={{
+                width: SERVICE_CONFIG.layout.middlePanelWidth,
+                position: 'relative',
+                zIndex: 2,
+              }}
+            >
+              <StoreListPanel
+                stores={filteredStores}
+                searchTerm={searchTerm}
+                onSearchChange={handleSearchChange}
+                selectedStoreId={selectedStore?.id}
+                onStoreSelect={setSelectedStore}
+                onCountrySearch={handleCountrySelect}
+                selectedCountry={selectedCountry}
+                queryType={queryType}
+                userLocation={userLocation}
+                userAddress={userAddress}
+                isLoadingLocation={isLoadingLocation}
+                locationError={locationError}
+                className="h-full"
+              />
+            </div>
+
+            {/* Map - Starts exactly after middle panel, centered in remaining space */}
+            <div
+              className="absolute inset-0"
+              style={{
+                left: `${parseFloat(SERVICE_CONFIG.layout.leftPanelWidth) + parseFloat(SERVICE_CONFIG.layout.middlePanelWidth)}%`,
+                right: 0,
+                zIndex: 1,
+              }}
+            >
+              <AfricaMapPanel
+                selectedCountry={searchTerm.trim() ? (selectedCountry || searchTerm) : ''}
+                onCountrySelect={handleCountrySelect}
+                userLocation={queryType === 'nearby' ? userLocation : null}
+                showOnlyUserLocation={queryType === 'nearby'}
+                className="h-full"
+              />
+            </div>
           </div>
         </div>
 
@@ -112,13 +167,15 @@ export const ServiceSupport: React.FC<ServiceSupportProps> = ({
             size="md"
             style={{
               backgroundColor: colors.background.white,
-              border: `1px solid ${colors.ui.border}`,
-              color: colors.text.black,
+              border: `2px solid ${colors.service.brandGreen}`,
+              color: colors.service.brandGreen,
+              fontWeight: 600,
             }}
           >
             {SERVICE_LABELS.buttonText}
           </Button>
         </div>
+
       </div>
     </section>
   );

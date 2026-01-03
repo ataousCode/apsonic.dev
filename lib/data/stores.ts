@@ -1,8 +1,5 @@
-// Store data for Service Support section
-// TODO: Replace with backend API integration using lib/api/stores.ts
+// Mock store data - replace with fetchStores() from lib/api/stores.ts
 import type { Store, StoreFilter } from '@/lib/types/store';
-
-// Sample store data - replace with fetchStores() from lib/api/stores.ts
 export const STORES: Store[] = [
   {
     id: '1',
@@ -13,6 +10,8 @@ export const STORES: Store[] = [
     country: 'Ghana',
     city: 'Accra',
     phone: '+233 XX XXX XXXX',
+    email: 'sogakofe@apsonic.com',
+    workingHours: 'Mon-Fri: 8:00 AM - 6:00 PM, Sat: 9:00 AM - 4:00 PM',
   },
   {
     id: '2',
@@ -23,6 +22,8 @@ export const STORES: Store[] = [
     country: 'Ghana',
     city: 'Accra',
     phone: '+233 XX XXX XXXX',
+    email: 'katesaling@apsonic.com',
+    workingHours: 'Mon-Sat: 8:00 AM - 5:00 PM',
   },
   {
     id: '3',
@@ -33,6 +34,8 @@ export const STORES: Store[] = [
     country: 'Togo',
     city: 'Lome',
     phone: '+228 XX XXX XXXX',
+    email: 'lome@apsonic.com',
+    workingHours: 'Mon-Fri: 8:00 AM - 6:00 PM, Sat: 9:00 AM - 3:00 PM',
   },
   {
     id: '4',
@@ -43,6 +46,20 @@ export const STORES: Store[] = [
     country: 'Benin',
     city: 'Cotonou',
     phone: '+229 XX XXX XXXX',
+    email: 'cotonou@apsonic.com',
+    workingHours: 'Mon-Sat: 8:00 AM - 5:00 PM',
+  },
+  {
+    id: '5',
+    name: 'Bamako Dealer',
+    address: 'Rue de la République, Bamako, Mali',
+    type: 'dealer',
+    coordinates: { lat: 12.6392, lng: -8.0029 },
+    country: 'Mali',
+    city: 'Bamako',
+    phone: '+223 XX XXX XXXX',
+    email: 'bamako@apsonic.com',
+    workingHours: 'Mon-Fri: 8:00 AM - 6:00 PM',
   },
 ];
 
@@ -67,9 +84,13 @@ export const filterStores = (stores: Store[], filter: StoreFilter): Store[] => {
       }
     }
 
-    // Filter by country
-    if (filter.country && store.country !== filter.country) {
-      return false;
+    // Filter by country (case-insensitive partial match)
+    if (filter.country) {
+      const filterCountryLower = filter.country.toLowerCase();
+      const storeCountryLower = store.country.toLowerCase();
+      if (!storeCountryLower.includes(filterCountryLower)) {
+        return false;
+      }
     }
 
     return true;

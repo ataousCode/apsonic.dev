@@ -74,12 +74,16 @@ export const FeaturedModelCarousel: React.FC<FeaturedModelCarouselProps> = ({
           {/* Watermark Background */}
           {currentModel.watermark && (
             <div
-              className="absolute inset-0 flex items-center justify-center z-0"
+              className="absolute inset-0 flex items-start justify-center z-0"
               style={{
                 color: 'rgba(0, 0, 0, 0.05)',
                 fontSize: 'clamp(4rem, 15vw, 12rem)',
-                fontWeight: 700,
-                fontFamily: 'inherit',
+                fontWeight: 900,
+                fontFamily: 'var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+                paddingTop: 'clamp(2rem, 8vw, 6rem)',
+                letterSpacing: '-0.02em',
+                lineHeight: 0.9,
+                whiteSpace: 'nowrap',
               }}
             >
               {currentModel.watermark}

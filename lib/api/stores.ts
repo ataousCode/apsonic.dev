@@ -1,11 +1,9 @@
-// API service for stores - ready for backend integration
+// Store API - expects GET /api/stores with optional query params (type, search, country)
 import type { Store, StoreFilter } from '@/lib/types/store';
 
-// API endpoint configuration
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '/api';
 const STORES_ENDPOINT = `${API_BASE_URL}/stores`;
 
-// Fetch all stores from backend
 export const fetchStores = async (): Promise<Store[]> => {
   try {
     const response = await fetch(STORES_ENDPOINT);
@@ -21,7 +19,6 @@ export const fetchStores = async (): Promise<Store[]> => {
   }
 };
 
-// Fetch stores with filters from backend
 export const fetchFilteredStores = async (filter: StoreFilter): Promise<Store[]> => {
   try {
     const queryParams = new URLSearchParams();
@@ -47,7 +44,6 @@ export const fetchFilteredStores = async (filter: StoreFilter): Promise<Store[]>
   }
 };
 
-// Fetch single store by ID
 export const fetchStoreById = async (id: string): Promise<Store | null> => {
   try {
     const response = await fetch(`${STORES_ENDPOINT}/${id}`);

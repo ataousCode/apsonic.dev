@@ -1,4 +1,4 @@
-// Featured models data - replace with API calls when backend is ready
+// Mock featured models - replace with GET /api/featured-models
 import type { FeaturedModel, MotorcycleCategory } from '@/lib/types';
 import { DEFAULT_MODEL_COLORS } from '@/lib/constants';
 

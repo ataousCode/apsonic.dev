@@ -1,4 +1,4 @@
-// Banner data - replace with API calls when backend is ready
+// Mock banner data - replace with GET /api/banners
 import type { BannerItem } from '@/lib/types/banner';
 import { HERO_SLOGAN } from '@/lib/constants';
 

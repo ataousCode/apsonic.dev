@@ -1,5 +1,4 @@
-// Filter options data - replace with API calls when backend is ready
-
+// Filter options - if dynamic, use GET /api/products/categories
 export interface FilterOption {
   value: string;
   label: string;

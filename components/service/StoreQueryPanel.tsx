@@ -9,8 +9,8 @@ import { cn } from '@/lib/utils';
 export type StoreQueryType = 'pickup' | 'nearby';
 
 export interface StoreQueryPanelProps {
-  queryType: StoreQueryType;
-  onQueryTypeChange: (type: StoreQueryType) => void;
+  queryType: StoreQueryType | null;
+  onQueryTypeChange: (type: StoreQueryType | null) => void;
   className?: string;
 }
 
@@ -24,7 +24,7 @@ export const StoreQueryPanel: React.FC<StoreQueryPanelProps> = ({
       className={cn('h-full', className)}
       style={{
         backgroundColor: colors.service.panelDark,
-        padding: SERVICE_CONFIG.panel.padding,
+        padding: 'clamp(20px, 4vw, 30px) clamp(16px, 3vw, 40px)',
       }}
     >
       <h3
@@ -39,17 +39,17 @@ export const StoreQueryPanel: React.FC<StoreQueryPanelProps> = ({
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: SERVICE_CONFIG.spacing.radioGap }}>
         <RadioOption
-          value={SERVICE_CONFIG.queryTypes.pickup}
-          label={SERVICE_LABELS.queryOptions.pickup}
-          checked={queryType === SERVICE_CONFIG.queryTypes.pickup}
-          onChange={() => onQueryTypeChange(SERVICE_CONFIG.queryTypes.pickup)}
-          name="queryType"
-        />
-        <RadioOption
           value={SERVICE_CONFIG.queryTypes.nearby}
           label={SERVICE_LABELS.queryOptions.nearby}
           checked={queryType === SERVICE_CONFIG.queryTypes.nearby}
-          onChange={() => onQueryTypeChange(SERVICE_CONFIG.queryTypes.nearby)}
+          onChange={() => {
+            // Toggle: if already checked, uncheck it (set to null)
+            if (queryType === SERVICE_CONFIG.queryTypes.nearby) {
+              onQueryTypeChange(null);
+            } else {
+              onQueryTypeChange(SERVICE_CONFIG.queryTypes.nearby);
+            }
+          }}
           name="queryType"
         />
       </div>

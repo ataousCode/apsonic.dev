@@ -7,7 +7,7 @@ export const PRODUCTS_GRID_CONFIG = {
       tablet: 2,
       desktop: 3,
     },
-    gap: '20px', // 15-20px spacing between cards
+    gap: '24px', // Improved spacing between cards - accommodates image overflow
   },
   
   // Card styling
@@ -15,7 +15,7 @@ export const PRODUCTS_GRID_CONFIG = {
     background: '#F5F5F5',
     borderRadius: '12px',
     padding: '20px',
-    overflow: 'hidden', // Contain image within card
+    // Note: overflow removed - images intentionally overflow for floating effect
   },
   
   // Image styling

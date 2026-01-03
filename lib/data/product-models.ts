@@ -1,5 +1,4 @@
-// Product models data - replace with API calls when backend is ready
-
+// Mock product data - replace with API call to GET /api/products
 import type { ProductModel } from '@/lib/types/products';
 
 // Product models data

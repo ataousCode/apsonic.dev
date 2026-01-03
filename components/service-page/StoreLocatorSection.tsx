@@ -18,7 +18,7 @@ export const StoreLocatorSection: React.FC<StoreLocatorSectionProps> = ({
   return (
     <Section
       className={className}
-      backgroundColor={SERVICE_PAGE_CONFIG.colors.cardBackground}
+      backgroundColor="transparent"
       padding="large"
     >
       <Container>
