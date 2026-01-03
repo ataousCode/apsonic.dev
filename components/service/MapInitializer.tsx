@@ -14,7 +14,7 @@ import { SERVICE_CONFIG } from '@/lib/constants/service';
 interface UseMapInitializerResult {
   map: React.MutableRefObject<mapboxgl.Map | null>;
   isLoaded: boolean;
-  mapContainer: React.RefObject<HTMLDivElement>;
+  mapContainer: React.RefObject<HTMLDivElement | null>;
 }
 
 export const useMapInitializer = (): UseMapInitializerResult => {
