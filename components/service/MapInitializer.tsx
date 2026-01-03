@@ -18,7 +18,7 @@ interface UseMapInitializerResult {
 }
 
 export const useMapInitializer = (): UseMapInitializerResult => {
-  const mapContainer = useRef<HTMLDivElement>(null);
+  const mapContainer = useRef<HTMLDivElement | null>(null);
   const map = useRef<mapboxgl.Map | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
