@@ -12,6 +12,12 @@ import { colors } from '@/lib/design-tokens';
 import { SERVICE_CONFIG, SERVICE_LABELS } from '@/lib/constants/service';
 import { cn } from '@/lib/utils';
 
+// TS in this repo (moduleResolution: bundler) can resolve a minimal MotionProps type
+// that doesn't include `initial/animate/exit/whileInView/variants` during production builds.
+// This keeps runtime behavior identical while unblocking typechecking on Vercel.
+const MotionDiv = motion.div as unknown as React.ComponentType<Record<string, unknown>>;
+const MotionP = motion.p as unknown as React.ComponentType<Record<string, unknown>>;
+
 export interface StoreListPanelProps {
   stores: Store[];
   searchTerm: string;
@@ -90,7 +96,7 @@ export const StoreListPanel: React.FC<StoreListPanelProps> = ({
       {/* Section Title - Show for nearby query or when there's a search */}
       <AnimatePresence>
         {(hasSearch || isNearbyQuery) && (
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
@@ -114,7 +120,7 @@ export const StoreListPanel: React.FC<StoreListPanelProps> = ({
             >
               {SERVICE_LABELS.listTitle}
             </h3>
-          </motion.div>
+          </MotionDiv>
         )}
       </AnimatePresence>
 
@@ -127,7 +133,7 @@ export const StoreListPanel: React.FC<StoreListPanelProps> = ({
       <div className="flex-1 overflow-y-auto">
         <AnimatePresence mode="wait">
           {isLoadingLocation ? (
-            <motion.div
+            <MotionDiv
               key="loading"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -138,9 +144,9 @@ export const StoreListPanel: React.FC<StoreListPanelProps> = ({
               <p style={{ color: colors.service.textMuted }}>
                 Finding your location...
               </p>
-            </motion.div>
+            </MotionDiv>
           ) : locationError ? (
-            <motion.div
+            <MotionDiv
               key="error"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -160,9 +166,9 @@ export const StoreListPanel: React.FC<StoreListPanelProps> = ({
               <p className="text-sm mt-2" style={{ color: colors.text.secondary }}>
                 Please enable location services or search for a location manually.
               </p>
-            </motion.div>
+            </MotionDiv>
           ) : showNearbyResults && hasResults ? (
-            <motion.div
+            <MotionDiv
               key="results"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -170,9 +176,9 @@ export const StoreListPanel: React.FC<StoreListPanelProps> = ({
               transition={{ duration: 0.3 }}
             >
               <NearbyStores stores={stores} country={selectedCountry} />
-            </motion.div>
+            </MotionDiv>
           ) : showNearbyResults && !hasResults ? (
-            <motion.div
+            <MotionDiv
               key="no-results"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -202,9 +208,9 @@ export const StoreListPanel: React.FC<StoreListPanelProps> = ({
               <p className="text-sm mt-2" style={{ color: colors.text.secondary }}>
                 Please try searching for a specific location or country.
               </p>
-            </motion.div>
+            </MotionDiv>
           ) : hasSearch && hasResults ? (
-            <motion.div
+            <MotionDiv
               key="search-results"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -212,9 +218,9 @@ export const StoreListPanel: React.FC<StoreListPanelProps> = ({
               transition={{ duration: 0.3 }}
             >
               <NearbyStores stores={stores} country={selectedCountry} />
-            </motion.div>
+            </MotionDiv>
           ) : hasSearch && !hasResults ? (
-            <motion.p
+            <MotionP
               key="no-search-results"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -222,7 +228,7 @@ export const StoreListPanel: React.FC<StoreListPanelProps> = ({
               style={{ color: colors.service.textMuted }}
             >
               {SERVICE_LABELS.noStoresFound}
-            </motion.p>
+            </MotionP>
           ) : null}
         </AnimatePresence>
       </div>

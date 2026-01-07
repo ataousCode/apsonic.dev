@@ -6,6 +6,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { colors } from '@/lib/design-tokens';
 import { cn } from '@/lib/utils';
 
+// Type-safe Motion wrapper for production builds
+const MotionButton = motion.button as React.ComponentType<
+  React.ComponentProps<typeof motion.button> & {
+    initial?: { opacity?: number; scale?: number; y?: number; [key: string]: any };
+    animate?: { opacity?: number; scale?: number; y?: number; [key: string]: any };
+    exit?: { opacity?: number; scale?: number; y?: number; [key: string]: any };
+    whileHover?: { scale?: number; [key: string]: any };
+    whileTap?: { scale?: number; [key: string]: any };
+  }
+>;
+
 /**
  * Floating scroll-to-top button
  * Appears when user scrolls down, allows smooth scroll to top
@@ -37,7 +48,7 @@ export const ScrollToTop: React.FC = () => {
   return (
     <AnimatePresence>
       {isVisible && (
-        <motion.button
+        <MotionButton
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.8, y: 20 }}
@@ -58,7 +69,7 @@ export const ScrollToTop: React.FC = () => {
           aria-label="Scroll to top"
         >
           <HiArrowUp className="w-5 h-5 md:w-6 md:h-6" />
-        </motion.button>
+        </MotionButton>
       )}
     </AnimatePresence>
   );

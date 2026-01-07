@@ -14,6 +14,11 @@ import { ProductsDropdown } from '@/components/products';
 // Delay before closing dropdown to prevent accidental closing
 const DROPDOWN_CLOSE_DELAY = 150;
 
+// TS in this repo (moduleResolution: bundler) can resolve a minimal MotionProps type
+// that doesn't include `initial/animate/exit` on motion components during production builds.
+// This keeps runtime behavior identical while unblocking typechecking on Vercel.
+const MotionDiv = motion.div as unknown as React.ComponentType<Record<string, unknown>>;
+
 export const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [language, setLanguage] = useState<Language>('zh');
@@ -76,7 +81,7 @@ export const Header: React.FC = () => {
         {/* Mobile Menu Overlay */}
         <AnimatePresence>
           {isMobileMenuOpen && (
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
@@ -106,7 +111,7 @@ export const Header: React.FC = () => {
                   <Logo showTagline={false} size="sm" className="opacity-30" />
                 </div>
               </nav>
-            </motion.div>
+            </MotionDiv>
           )}
         </AnimatePresence>
       </div>

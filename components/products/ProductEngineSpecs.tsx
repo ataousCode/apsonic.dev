@@ -6,6 +6,11 @@ import { cn } from '@/lib/utils';
 import { motion, useReducedMotion } from 'motion/react';
 import { EngineSpec } from '@/lib/types/products';
 
+// TS in this repo (moduleResolution: bundler) can resolve a minimal MotionProps type
+// that doesn't include `initial/animate/exit/whileInView/variants` during production builds.
+// This keeps runtime behavior identical while unblocking typechecking on Vercel.
+const MotionDiv = motion.div as unknown as React.ComponentType<Record<string, unknown>>;
+
 interface ProductEngineSpecsProps {
   title: string;
   description: string;
@@ -56,7 +61,7 @@ export const ProductEngineSpecs: React.FC<ProductEngineSpecsProps> = ({
         <div className="max-w-xl flex flex-col items-start gap-8 sm:gap-12">
           
           {/* Header Group */}
-          <motion.div
+          <MotionDiv
             className="space-y-4"
             initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -69,10 +74,10 @@ export const ProductEngineSpecs: React.FC<ProductEngineSpecsProps> = ({
             <p className="text-sm sm:text-base text-gray-400 font-light leading-relaxed max-w-md">
               {description}
             </p>
-          </motion.div>
+          </MotionDiv>
 
           {/* Specs Grid */}
-          <motion.div
+          <MotionDiv
             className="w-full space-y-4 sm:space-y-6"
             initial="hidden"
             whileInView="show"
@@ -86,7 +91,7 @@ export const ProductEngineSpecs: React.FC<ProductEngineSpecsProps> = ({
             }}
           >
             {specs.map((spec, index) => (
-              <motion.div
+              <MotionDiv
                 key={index}
                 className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-6 py-5 sm:py-8 flex items-center justify-between group hover:bg-white/10 transition-colors duration-300"
                 style={{ maxWidth: '400px' }}
@@ -101,9 +106,9 @@ export const ProductEngineSpecs: React.FC<ProductEngineSpecsProps> = ({
                 <span className="text-xl sm:text-2xl md:text-3xl font-medium text-[#D4AF37] tracking-tight">
                   {spec.value}
                 </span>
-              </motion.div>
+              </MotionDiv>
             ))}
-          </motion.div>
+          </MotionDiv>
 
           {/* Disclaimer */}
           {disclaimer && (

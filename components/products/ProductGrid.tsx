@@ -9,6 +9,13 @@ import { groupProductsByCategory } from '@/lib/data/product-models';
 import { CATEGORY_DISPLAY_NAMES } from '@/lib/constants';
 import { PRODUCTS_GRID_CONFIG } from '@/lib/constants/products';
 
+// TS in this repo (moduleResolution: bundler) can resolve a minimal MotionProps type
+// that doesn't include `initial/animate/exit/whileInView/variants` during production builds.
+// This keeps runtime behavior identical while unblocking typechecking on Vercel.
+const MotionSection = motion.section as unknown as React.ComponentType<Record<string, unknown>>;
+const MotionH2 = motion.h2 as unknown as React.ComponentType<Record<string, unknown>>;
+const MotionDiv = motion.div as unknown as React.ComponentType<Record<string, unknown>>;
+
 interface ProductGridProps {
   products: ProductModel[];
   className?: string;
@@ -48,7 +55,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ products, className })
   return (
     <div className={className}>
       {Object.entries(groupedProducts).map(([category, categoryProducts]) => (
-        <motion.section
+        <MotionSection
           key={category}
           className="mb-10"
           variants={sectionVariants}
@@ -57,26 +64,26 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ products, className })
           viewport={{ once: true, amount: 0.2 }}
         >
           {/* Category Title */}
-          <motion.h2
+          <MotionH2
             className="text-2xl font-bold mb-6"
             style={{ color: colors.text.black }}
             variants={itemVariants}
           >
             {CATEGORY_DISPLAY_NAMES[category] || category}
-          </motion.h2>
+          </MotionH2>
 
           {/* Product Grid - 3 columns with overlapping effect */}
-          <motion.div
+          <MotionDiv
             className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
             style={{ gap: PRODUCTS_GRID_CONFIG.grid.gap }}
           >
             {categoryProducts.map((product) => (
-              <motion.div key={product.id} variants={itemVariants}>
+              <MotionDiv key={product.id} variants={itemVariants}>
                 <ProductModelCard product={product} />
-              </motion.div>
+              </MotionDiv>
             ))}
-          </motion.div>
-        </motion.section>
+          </MotionDiv>
+        </MotionSection>
       ))}
     </div>
   );

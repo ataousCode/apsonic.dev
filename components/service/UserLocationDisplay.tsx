@@ -11,6 +11,14 @@ interface UserLocationDisplayProps {
   className?: string;
 }
 
+// Type-safe Motion wrapper for production builds
+const MotionDiv = motion.div as React.ComponentType<
+  React.ComponentProps<typeof motion.div> & {
+    initial?: { opacity?: number; [key: string]: any };
+    animate?: { opacity?: number; [key: string]: any };
+  }
+>;
+
 /**
  * Displays user's location with formatted address
  * Shows street address, city/country, and coordinates as fallback
@@ -21,7 +29,7 @@ export const UserLocationDisplay: React.FC<UserLocationDisplayProps> = ({
   className,
 }) => {
   return (
-    <motion.div
+    <MotionDiv
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       className={`mb-4 p-3 rounded-lg ${className || ''}`}
@@ -44,7 +52,7 @@ export const UserLocationDisplay: React.FC<UserLocationDisplayProps> = ({
       <p className="text-xs mt-1" style={{ color: colors.text.muted }}>
         {location.lat.toFixed(4)}, {location.lng.toFixed(4)}
       </p>
-    </motion.div>
+    </MotionDiv>
   );
 };
 

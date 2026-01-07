@@ -20,7 +20,7 @@ export interface ScrollRevealProps {
   /** How much of the element should be visible before animating (0..1) */
   amount?: number;
   /** Render as a semantic tag (defaults to div) */
-  as?: keyof JSX.IntrinsicElements;
+  as?: keyof React.JSX.IntrinsicElements;
 }
 
 const easing: number[] = [0.22, 1, 0.36, 1];
@@ -77,7 +77,9 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
 }) => {
   const reduceMotion = useReducedMotion();
   const preset = getPreset(variant, !!reduceMotion);
-  const MotionTag = (motion as unknown as Record<string, React.ElementType>)[as] ?? motion.div;
+  const MotionTag = ((motion as unknown as Record<string, unknown>)[as] ?? motion.div) as unknown as React.ComponentType<
+    Record<string, unknown>
+  >;
 
   return (
     <MotionTag

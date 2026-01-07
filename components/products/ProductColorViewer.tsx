@@ -6,6 +6,11 @@ import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ProductColor } from '@/lib/types/products';
 
+// TS in this repo (moduleResolution: bundler) can resolve a minimal MotionProps type
+// that doesn't include `initial/animate/exit` on motion components during production builds.
+// This keeps runtime behavior identical while unblocking typechecking on Vercel.
+const MotionDiv = motion.div as unknown as React.ComponentType<Record<string, unknown>>;
+
 interface ProductColorViewerProps {
   title: string;
   subtitle: string;
@@ -54,7 +59,7 @@ export const ProductColorViewer: React.FC<ProductColorViewerProps> = ({
         {/* Main Image Viewer */}
         <div className="absolute inset-0 flex items-center justify-center z-10 px-4 sm:px-12">
           <AnimatePresence mode="wait">
-            <motion.div
+            <MotionDiv
               key={activeColor.id}
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -70,7 +75,7 @@ export const ProductColorViewer: React.FC<ProductColorViewerProps> = ({
                 priority
                 sizes="(max-width: 1280px) 100vw, 1200px"
               />
-            </motion.div>
+            </MotionDiv>
           </AnimatePresence>
         </div>
 

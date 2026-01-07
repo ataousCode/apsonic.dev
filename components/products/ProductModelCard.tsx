@@ -8,6 +8,11 @@ import type { ProductModel } from '@/lib/types/products';
 import { PRODUCTS_GRID_CONFIG } from '@/lib/constants/products';
 import { cn } from '@/lib/utils';
 
+// TS in this repo (moduleResolution: bundler) can resolve a minimal MotionProps type
+// that doesn't include `initial/animate/exit/whileInView/variants` during production builds.
+// This keeps runtime behavior identical while unblocking typechecking on Vercel.
+const MotionDiv = motion.div as unknown as React.ComponentType<Record<string, unknown>>;
+
 interface ProductModelCardProps {
   product: ProductModel;
   className?: string;
@@ -27,7 +32,7 @@ export const ProductModelCard: React.FC<ProductModelCardProps> = ({ product, cla
         paddingBottom: '4px', // Reduced space for bottom overflow
       }}
     >
-      <motion.div
+      <MotionDiv
         className="relative will-change-transform"
         whileHover={reduceMotion ? undefined : { y: -4 }}
         whileTap={reduceMotion ? undefined : { scale: 0.99 }}
@@ -83,7 +88,7 @@ export const ProductModelCard: React.FC<ProductModelCardProps> = ({ product, cla
             marginRight: 'auto',
           }}
         >
-          <motion.div
+          <MotionDiv
             className="absolute inset-0"
             whileHover={reduceMotion ? undefined : { scale: 1.015 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
@@ -95,9 +100,9 @@ export const ProductModelCard: React.FC<ProductModelCardProps> = ({ product, cla
               className="object-contain object-center"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
-          </motion.div>
+          </MotionDiv>
         </div>
-      </motion.div>
+      </MotionDiv>
     </Link>
   );
 };

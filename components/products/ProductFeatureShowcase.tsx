@@ -6,6 +6,12 @@ import { cn } from '@/lib/utils';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { ProductFeature } from '@/lib/types/products';
 
+// TS in this repo (moduleResolution: bundler) can resolve a minimal MotionProps type
+// that doesn't include `initial/animate/exit/whileInView/layoutId` during production builds.
+// This keeps runtime behavior identical while unblocking typechecking on Vercel.
+const MotionH2 = motion.h2 as unknown as React.ComponentType<Record<string, unknown>>;
+const MotionDiv = motion.div as unknown as React.ComponentType<Record<string, unknown>>;
+
 interface ProductFeatureShowcaseProps {
   sectionTitle: string;
   features: ProductFeature[];
@@ -37,7 +43,7 @@ export const ProductFeatureShowcase: React.FC<ProductFeatureShowcaseProps> = ({
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
         
         {/* Section Title */}
-        <motion.h2
+        <MotionH2
           className="text-2xl sm:text-3xl md:text-4xl font-light text-gray-900 mb-16 tracking-[0.15em] text-center uppercase"
           initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -45,12 +51,12 @@ export const ProductFeatureShowcase: React.FC<ProductFeatureShowcaseProps> = ({
           transition={{ duration: reduceMotion ? 0 : 0.45, ease: easing }}
         >
           {sectionTitle}
-        </motion.h2>
+        </MotionH2>
 
         {/* Main Image Showcase */}
         <div className="relative w-full max-w-6xl aspect-[4/5] sm:aspect-[16/9] overflow-hidden bg-gray-50 rounded-2xl sm:rounded-3xl shadow-xl">
           <AnimatePresence mode="wait">
-            <motion.div
+            <MotionDiv
               key={activeFeature.id}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -70,7 +76,7 @@ export const ProductFeatureShowcase: React.FC<ProductFeatureShowcaseProps> = ({
               {/* Text Overlay - Adjusted for Mobile Bottom-up alignment */}
               <div className="absolute inset-0 z-10 p-6 sm:p-12 md:p-16 flex flex-col justify-end sm:justify-start pointer-events-none">
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent sm:hidden" />
-                <motion.div
+                <MotionDiv
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.2, duration: 0.5 }}
@@ -82,9 +88,9 @@ export const ProductFeatureShowcase: React.FC<ProductFeatureShowcaseProps> = ({
                   <p className="text-xs sm:text-base text-white/90 font-light leading-relaxed drop-shadow-md max-w-xs sm:max-w-md">
                     {activeFeature.description}
                   </p>
-                </motion.div>
+                </MotionDiv>
               </div>
-            </motion.div>
+            </MotionDiv>
           </AnimatePresence>
         </div>
 
@@ -104,7 +110,7 @@ export const ProductFeatureShowcase: React.FC<ProductFeatureShowcaseProps> = ({
               >
                 {feature.label}
                 {activeFeature.id === feature.id && (
-                  <motion.div 
+                  <MotionDiv
                     layoutId="active-underline"
                     className="absolute bottom-0 left-0 right-0 h-[2px] bg-gray-900"
                     transition={{ type: "spring", stiffness: 300, damping: 30 }}

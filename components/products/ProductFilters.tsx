@@ -10,6 +10,11 @@ import { CATEGORY_OPTIONS } from '@/lib/data/filters';
 import { getAvailableDisplacements } from '@/lib/data/product-models';
 import type { ProductFilters as ProductFiltersType } from '@/lib/types/products';
 
+// TS in this repo (moduleResolution: bundler) can resolve a minimal MotionProps type
+// that doesn't include `initial/animate/exit/whileInView/variants` during production builds.
+// This keeps runtime behavior identical while unblocking typechecking on Vercel.
+const MotionDiv = motion.div as unknown as React.ComponentType<Record<string, unknown>>;
+
 interface ProductFiltersProps {
   filters: ProductFiltersType;
   onFilterChange: (filters: ProductFiltersType) => void;
@@ -52,7 +57,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
       className="w-full py-6"
       style={{ backgroundColor: colors.background.white }}
     >
-      <motion.div
+      <MotionDiv
         className="container mx-auto px-6 sm:px-10 lg:px-16"
         initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -132,7 +137,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
             />
           </div>
         </div>
-      </motion.div>
+      </MotionDiv>
     </div>
   );
 };
