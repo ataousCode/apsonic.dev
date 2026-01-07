@@ -5,7 +5,8 @@ import type { ProductModel } from '@/lib/types/products';
 export const PRODUCT_MODELS: ProductModel[] = [
   // Underbone models
   { id: 'ap50-3', model: 'AP50-3', brand: 'APSONIC', category: 'underbone', displacement: 50, image: '/images/banners/homepage/img1.jpg', brandId: 'apsonic' },
-  { id: 'ap50-a-plus', model: 'AP50-A PLUS', brand: 'APSONIC', category: 'underbone', displacement: 50, image: '/images/banners/homepage/img2.jpg', brandId: 'apsonic' },
+  { id: 'ap150-30', model: 'AP150-30', brand: 'APSONIC', category: 'underbone', displacement: 150, image: '/images/banners/homepage/img2.jpg', brandId: 'apsonic' },
+  { id: 'ap50-a-plus', model: 'AP50-A PLUS', brand: 'APSONIC', category: 'underbone', displacement: 50, image: '/images/banners/homepage/img3.jpg', brandId: 'apsonic' },
   { id: 'ap110-3', model: 'AP110-3', brand: 'APSONIC', category: 'underbone', displacement: 110, image: '/images/banners/homepage/img3.jpg', brandId: 'apsonic' },
   { id: 'ap110-a-plus-white', model: 'AP110-A PLUS', brand: 'APSONIC', category: 'underbone', displacement: 110, image: '/images/banners/homepage/AP110-A-PLUS(白).png', brandId: 'apsonic' },
   { id: 'ap110-a-plus-red', model: 'AP110-A PLUS', brand: 'APSONIC', category: 'underbone', displacement: 110, image: '/images/banners/homepage/AP110-A-PLUS(红).png', brandId: 'apsonic' },
@@ -86,5 +87,10 @@ export function getAvailableDisplacements(): number[] {
     }
   });
   return Array.from(displacements).sort((a, b) => a - b);
+}
+
+// Get single product by ID
+export function getProductById(id: string): ProductModel | undefined {
+  return PRODUCT_MODELS.find(p => p.id === id);
 }
 

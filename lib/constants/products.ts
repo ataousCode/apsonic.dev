@@ -7,20 +7,23 @@ export const PRODUCTS_GRID_CONFIG = {
       tablet: 2,
       desktop: 3,
     },
-    gap: '24px', // Improved spacing between cards - accommodates image overflow
+    gap: '5px', // Spacing between cards - REDUCE THIS to make gaps smaller
   },
   
   // Card styling
   card: {
     background: '#F5F5F5',
     borderRadius: '12px',
-    padding: '20px',
+    padding: '12px', // REDUCE THIS to make card padding smaller
+    maxWidth: '80%', // Match image width - REDUCE THIS to make card smaller
     // Note: overflow removed - images intentionally overflow for floating effect
   },
   
   // Image styling
   image: {
-    aspectRatio: '4/3',
+    aspectRatio: '3/2',
+    maxHeight: '220px', // Limit maximum image height - REDUCE THIS to make images smaller
+    maxWidth: '80%', // Limit maximum image width - REDUCE THIS to make images narrower
   },
   
   // Typography

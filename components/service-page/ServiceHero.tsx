@@ -24,26 +24,6 @@ export const ServiceHero: React.FC<ServiceHeroProps> = ({ className }) => {
       }}
     >
       <div className="flex flex-col items-center">
-        {/* Logo Badge */}
-        {/* <div
-          className="rounded-full flex items-center justify-center mb-8"
-          style={{
-            width: SERVICE_PAGE_CONFIG.logoBadge.size,
-            height: SERVICE_PAGE_CONFIG.logoBadge.size,
-            backgroundColor: SERVICE_PAGE_CONFIG.logoBadge.backgroundColor,
-            boxShadow: SERVICE_PAGE_CONFIG.logoBadge.shadow,
-          }}
-        >
-          <Image
-            src="/images/logo/logo.png"
-            alt="APSONIC Logo"
-            width={80}
-            height={80}
-            className="object-contain"
-            style={{ filter: 'brightness(0) invert(1)' }}
-          />
-        </div> */}
-
         {/* Main Heading */}
         <h1
           className="text-center"

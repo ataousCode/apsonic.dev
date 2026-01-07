@@ -31,6 +31,54 @@ export interface ProductModel {
   brandId?: string; // Link to Brand
 }
 
+// Product detail specific types for backend integration
+export interface ProductFeature {
+  id: string;
+  label: string;
+  title: string;
+  description: string;
+  image: string;
+}
+
+export interface EngineSpec {
+  label: string;
+  value: string;
+}
+
+export interface GridFeature {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+}
+
+export interface KeyMetric {
+  label: string;
+  value: string;
+  unit: string;
+  subValue?: string;
+}
+
+export interface TechSpecItem {
+  label: string;
+  value: string;
+}
+
+export interface ProductColor {
+  id: string;
+  name: string;
+  colorCode: string;
+  image: string;
+}
+
+export interface ProductDetailData {
+  features: ProductFeature[];
+  engineSpecs: EngineSpec[];
+  gridFeatures: GridFeature[];
+  keyMetrics: KeyMetric[];
+  detailedSpecs: TechSpecItem[];
+}
+
 // Product filters
 export interface ProductFilters {
   type?: string; // Category slug

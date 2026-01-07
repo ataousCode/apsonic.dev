@@ -10,6 +10,7 @@ export { Tooltip, type TooltipProps } from './Tooltip';
 export { Section, type SectionProps } from './Section';
 export { Container, type ContainerProps } from './Container';
 export { HoverCard, type HoverCardProps } from './HoverCard';
+export { ScrollReveal, type ScrollRevealProps } from './ScrollReveal';
 export {
   SearchIcon,
   MenuIcon,

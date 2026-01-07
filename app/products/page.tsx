@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ProductFilters } from '@/components/products/ProductFilters';
-import { ProductGrid } from '@/components/products/ProductGrid';
+import { ProductFilters, ProductGrid } from '@/components/products';
 import type { ProductFilters as ProductFiltersType } from '@/lib/types/products';
 import { useProductFilters } from '@/hooks/useProductFilters';
 import { colors, spacing } from '@/lib/design-tokens';
@@ -13,7 +12,7 @@ export default function ProductsPage() {
 
   return (
     <main
-      className="min-h-screen"
+      className="min-h-screen pt-20"
       style={{ backgroundColor: colors.background.white }}
     >
       {/* Filters Section */}
@@ -21,7 +20,7 @@ export default function ProductsPage() {
 
       {/* Products Grid Section */}
       <div className={`w-full ${spacing.section.vertical}`}>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto px-6 sm:px-10 lg:px-16">
           <ProductGrid products={filteredProducts} />
         </div>
       </div>

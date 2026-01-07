@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { motion, useReducedMotion } from 'motion/react';
 import { SearchInput } from '@/components/layout/SearchInput';
 import { FilterButton } from './FilterButton';
 import { colors } from '@/lib/design-tokens';
@@ -18,6 +19,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
   filters,
   onFilterChange,
 }) => {
+  const reduceMotion = useReducedMotion();
   const displacements = getAvailableDisplacements();
   const displacementOptions = [
     { value: 0, label: 'Unlimited' },
@@ -47,10 +49,15 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
 
   return (
     <div
-      className="w-full py-8"
+      className="w-full py-6"
       style={{ backgroundColor: colors.background.white }}
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.div
+        className="container mx-auto px-6 sm:px-10 lg:px-16"
+        initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: reduceMotion ? 0 : 0.4, ease: [0.22, 1, 0.36, 1] }}
+      >
         {/* Title */}
         <h1
           className="text-3xl font-bold mb-6"
@@ -125,7 +132,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
             />
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

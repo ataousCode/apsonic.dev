@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { NAV_ITEMS } from '@/lib/constants';
 import { colors } from '@/lib/design-tokens';
 import { Logo } from './Logo';
@@ -69,19 +70,45 @@ export const Header: React.FC = () => {
             <LanguageSelector value={language} onChange={setLanguage} />
           </div>
 
-          <MobileMenuButton isOpen={isMobileMenuOpen} onClick={handleMobileMenuToggle} />
+        <MobileMenuButton isOpen={isMobileMenuOpen} onClick={handleMobileMenuToggle} />
         </div>
 
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <nav className="md:hidden py-4" style={{ borderTop: `1px solid ${colors.ui.border}` }}>
-            <Navigation items={NAV_ITEMS} className="flex-col gap-0" onItemClick={handleMobileMenuClose} />
-            <div className="mt-4 flex flex-col gap-3">
-              <SearchInput className="w-full" />
-              <LanguageSelector value={language} onChange={setLanguage} />
-            </div>
-          </nav>
-        )}
+        {/* Mobile Menu Overlay */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="md:hidden fixed inset-0 top-20 bg-white z-40 overflow-y-auto"
+            >
+              <nav className="container mx-auto px-4 py-8 flex flex-col gap-8">
+                <Navigation 
+                  items={NAV_ITEMS} 
+                  className="flex-col items-start gap-6" 
+                  onItemClick={handleMobileMenuClose} 
+                />
+                
+                <div className="flex flex-col gap-6 pt-6 border-t border-gray-100">
+                  <div className="space-y-2">
+                    <span className="text-[10px] text-gray-400 uppercase tracking-widest font-medium">搜索车型</span>
+                    <SearchInput className="w-full" />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <span className="text-[10px] text-gray-400 uppercase tracking-widest font-medium">语言设置</span>
+                    <LanguageSelector value={language} onChange={setLanguage} />
+                  </div>
+                </div>
+
+                <div className="mt-auto pt-12 pb-8">
+                  <Logo showTagline={false} size="sm" className="opacity-30" />
+                </div>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </header>
   );

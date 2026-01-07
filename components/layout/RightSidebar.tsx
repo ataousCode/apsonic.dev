@@ -39,7 +39,7 @@ export const RightSidebar: React.FC = () => {
   return (
     <>
       <aside
-        className="fixed right-0 z-40 flex flex-col items-center gap-2 md:gap-3 py-2 md:py-4 px-1 md:px-1.5 rounded-l-lg transition-all"
+        className="hidden sm:flex fixed right-0 z-40 flex flex-col items-center gap-2 md:gap-3 py-2 md:py-4 px-1 md:px-1.5 rounded-l-lg transition-all"
         style={{
           backgroundColor: colors.background.sidebar,
           backdropFilter: 'blur(10px)',
