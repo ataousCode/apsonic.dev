@@ -33,6 +33,8 @@ export const updateGeoJSONSource = (
   map: mapboxgl.Map,
   geoJson: FeatureCollection
 ): void => {
+  if (!map) return;
+
   const sourceExists = map.getSource(SOURCE_ID);
   if (sourceExists) {
     (sourceExists as mapboxgl.GeoJSONSource).setData(geoJson);
